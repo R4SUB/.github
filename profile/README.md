@@ -132,34 +132,47 @@ The SCI is a composite score ranging from 0 to 100, derived from weighted contri
 
 ## Package Ecosystem
 
-The R4SUB framework is implemented as an open-source GitHub organization with modular R packages:
+The R4SUB framework is implemented as an open-source GitHub organization with 8 modular R packages:
 
 | Package | Purpose |
 |---------|---------|
-| **r4subcore** | Ingestion, configuration, standards, common data model |
-| **r4subquality** | Data quality and compliance scoring |
-| **r4subtrace** | Traceability graph and coverage metrics |
-| **r4subrisk** | Statistical and analytical risk evaluation |
-| **r4subusability** | Reviewer-centric usability heuristics |
-| **r4subscore** | SCI aggregation and computation |
-| **r4subreport** | Reporting outputs (HTML, PDF, JSON) |
-| **r4subshiny** | Interactive readiness dashboards |
+| [**r4subcore**](https://github.com/R4SUB/r4subcore) | Core evidence schema, parsers, and scoring primitives |
+| [**r4subtrace**](https://github.com/R4SUB/r4subtrace) | ADaM-to-SDTM traceability analysis and coverage metrics |
+| [**r4subscore**](https://github.com/R4SUB/r4subscore) | Submission Confidence Index (SCI) scoring engine |
+| [**r4subrisk**](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification and mitigation tracking |
+| [**r4subdata**](https://github.com/R4SUB/r4subdata) | Demo datasets: evidence tables, metadata, risk registers |
+| [**r4subprofile**](https://github.com/R4SUB/r4subprofile) | Regulatory submission profiles (FDA, EMA, PMDA, Health Canada, TGA, MHRA) |
+| [**r4subui**](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard |
+| [**r4sub**](https://github.com/R4SUB/r4sub) | Meta-package — one install, one library call to load everything |
 
 Each package is independently testable, documented, and extensible.
+
+### Quick Install
+
+```r
+install.packages("pak")
+pak::pak("R4SUB/r4sub")
+```
 
 ---
 
 ## Typical Workflow
 
 ```
-1. Ingest       →  Load SDTM, ADaM, TLFs, Define.xml, validation results
+1. Ingest       →  Load SDTM, ADaM metadata, Define.xml, validation results
 2. Extract      →  Generate evidence signals across all four pillars
 3. Evaluate     →  Compute pillar scores and aggregate to SCI
-4. Report       →  Generate regulator-ready reports (HTML, PDF, JSON)
+4. Profile      →  Apply regulatory authority profile (FDA, EMA, PMDA, ...)
 5. Review       →  Inspect drill-downs, identify root causes
 6. Remediate    →  Address flagged issues
 7. Iterate      →  Re-run until target SCI achieved
 ```
+
+### Gallery & Demos
+
+See the **[R4SUB Gallery](https://r4sub.github.io/r4sub-gallery/)** for 11 practical, runnable demos covering the full pipeline — from evidence construction to multi-authority comparison.
+
+Browse the source: [R4SUB/r4sub-gallery](https://github.com/R4SUB/r4sub-gallery)
 
 ---
 
@@ -221,7 +234,7 @@ R4SUB aims to become:
 
 R4SUB is:
 
-- Fully open source (Apache 2.0 License)
+- Fully open source (MIT License)
 - Vendor-neutral
 - Audit-friendly
 - Reproducible
