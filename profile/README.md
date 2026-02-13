@@ -66,45 +66,13 @@ R4SUB is founded on five key principles:
 
 R4SUB evaluates submission readiness across four orthogonal pillars:
 
-### Pillar 1 — Data Quality & Standards Compliance
-
-Assesses structural and rule-based validation outcomes:
-
-- CDISC compliance (SDTM, ADaM conformance)
-- Controlled terminology adherence
-- Metadata completeness
-- Severity-weighted validation outcomes
-- Define.xml structural integrity
-
-### Pillar 2 — Traceability & Transparency
-
-Evaluates lineage completeness and reviewer reproducibility:
-
-- SDTM-to-ADaM derivation lineage
-- ADaM-to-TLF trace paths
-- Broken or missing mappings
-- Analysis triplet completeness
-- Reviewer reproducibility score
-
-### Pillar 3 — Statistical & Analytical Risk
-
-Measures patterns that may trigger regulatory questions:
-
-- Population consistency across analyses
-- Endpoint reproducibility
-- Missingness risk assessment
-- Protocol deviation impact
-- Subgroup analysis integrity
-
-### Pillar 4 — Usability & Reviewer Experience
-
-Quantifies reviewer effort and navigation efficiency:
-
-- Dataset navigability
-- Variable label clarity
-- Redundancy detection
-- Define.xml usability
-- Cross-reference consistency
+| Quality & Compliance | Traceability & Transparency | Statistical & Analytical Risk | Usability & Reviewer Experience |
+|---|---|---|---|
+| CDISC compliance (SDTM, ADaM) | SDTM-to-ADaM derivation lineage | Population consistency across analyses | Dataset navigability |
+| Controlled terminology adherence | ADaM-to-TLF trace paths | Endpoint reproducibility | Variable label clarity |
+| Metadata completeness | Broken or missing mappings | Missingness risk assessment | Redundancy detection |
+| Severity-weighted validation outcomes | Analysis triplet completeness | Protocol deviation impact | Define.xml usability |
+| Define.xml structural integrity | Reviewer reproducibility score | Subgroup analysis integrity | Cross-reference consistency |
 
 ---
 
