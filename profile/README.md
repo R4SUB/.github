@@ -1,241 +1,191 @@
-# R4SUB — Ready for Submission
+# R4SUB — R for Regulatory Submission
 
-**A Quantitative Framework to Assess Clinical Data Readiness for Regulatory Submission**
+**A quantitative framework to assess clinical data readiness for regulatory submission.**
 
 ---
 
-## Purpose & Core Question
+## What is R4SUB?
 
-R4SUB (R for Submission) is designed to answer a single, critical question in a reproducible and regulator-aligned manner:
+R4SUB answers a single question in a reproducible, regulator-aligned way:
 
 > **Is this clinical data package ready for regulatory submission?**
 
-The framework transforms fragmented validation outputs, metadata checks, and analysis diagnostics into a unified, explainable, and quantitative readiness signal.
+The framework transforms fragmented validation outputs, metadata checks, and analysis diagnostics into a unified, explainable, quantitative readiness signal — the **Submission Confidence Index (SCI)**.
 
-R4SUB is not a replacement for validation tools — it is a **readiness framework** that builds on their outputs.
-
----
-
-## Design Principles
-
-R4SUB is founded on five key principles:
-
-| Principle | Description |
-|-----------|-------------|
-| **Regulator-aligned** | Abstracts FDA, EMA, PMDA expectations into measurable indicators |
-| **Quantitative** | Moves beyond binary pass/fail toward weighted scoring |
-| **Explainable** | Every score is traceable to concrete evidence |
-| **Modular** | Designed as independent, composable R packages |
-| **Submission-centric** | Focused on decision-making rather than raw validation |
-
----
-
-## High-Level Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         Clinical Data Assets                            │
-│         (SDTM, ADaM, TLFs, Define.xml, Analysis Triplets)              │
-└─────────────────────────────────┬───────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          R4SUB Engine                                   │
-│  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌─────────────┐ │
-│  │    Quality    │ │  Traceability │ │     Risk      │ │  Usability  │ │
-│  │    Signals    │ │    Signals    │ │    Signals    │ │   Signals   │ │
-│  └───────────────┘ └───────────────┘ └───────────────┘ └─────────────┘ │
-└─────────────────────────────────┬───────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│              Submission Confidence Index (SCI)                          │
-│                         Score: 0–100                                    │
-└─────────────────────────────────┬───────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                      Readiness Decision                                 │
-│            (Ready / Conditionally Ready / High Risk / Not Ready)        │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Core Evaluation Pillars
-
-R4SUB evaluates submission readiness across four orthogonal pillars:
-
-| Quality & Compliance | Traceability & Transparency | Statistical & Analytical Risk | Usability & Reviewer Experience |
-|---|---|---|---|
-| CDISC compliance (SDTM, ADaM) | SDTM-to-ADaM derivation lineage | Population consistency across analyses | Dataset navigability |
-| Controlled terminology adherence | ADaM-to-TLF trace paths | Endpoint reproducibility | Variable label clarity |
-| Metadata completeness | Broken or missing mappings | Missingness risk assessment | Redundancy detection |
-| Severity-weighted validation outcomes | Analysis triplet completeness | Protocol deviation impact | Define.xml usability |
-| Define.xml structural integrity | Reviewer reproducibility score | Subgroup analysis integrity | Cross-reference consistency |
-
----
-
-## Submission Confidence Index (SCI)
-
-The SCI is a composite score ranging from 0 to 100, derived from weighted contributions of all four pillars.
-
-### Interpretation Bands
-
-| Score | Status | Interpretation |
-|-------|--------|----------------|
-| **85–100** | Ready for Submission | Data package meets regulatory expectations |
-| **70–84** | Conditionally Ready | Minor issues; proceed with documented remediation plan |
-| **50–69** | High Risk | Significant gaps; remediation required before submission |
-| **< 50** | Not Submission Ready | Major deficiencies; comprehensive review needed |
-
-### Score Characteristics
-
-- Fully decomposable to pillar and indicator level
-- Supports drill-down to root cause evidence
-- Configurable weights per regulatory context (FDA, EMA, PMDA)
-- Comparable across studies and submissions
+R4SUB is not a replacement for validation tools. It is a **readiness layer** that builds on their outputs.
 
 ---
 
 ## Package Ecosystem
 
-The R4SUB framework is implemented as an open-source GitHub organization with 8 modular R packages:
+9 modular R packages — each independently testable, documented, and published.
 
-| Package | Purpose |
-|---------|---------|
-| [**r4subcore**](https://github.com/R4SUB/r4subcore) | Core evidence schema, parsers, and scoring primitives |
-| [**r4subtrace**](https://github.com/R4SUB/r4subtrace) | ADaM-to-SDTM traceability analysis and coverage metrics |
-| [**r4subscore**](https://github.com/R4SUB/r4subscore) | Submission Confidence Index (SCI) scoring engine |
-| [**r4subrisk**](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification and mitigation tracking |
-| [**r4subdata**](https://github.com/R4SUB/r4subdata) | Demo datasets: evidence tables, metadata, risk registers |
-| [**r4subprofile**](https://github.com/R4SUB/r4subprofile) | Regulatory submission profiles (FDA, EMA, PMDA, Health Canada, TGA, MHRA) |
-| [**r4subui**](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard |
-| [**r4sub**](https://github.com/R4SUB/r4sub) | Meta-package — one install, one library call to load everything |
+| Package | Purpose | CRAN | Docs |
+|---|---|---|---|
+| [**r4subcore**](https://github.com/R4SUB/r4subcore) | Evidence schema, parsers, scoring primitives | [![CRAN](https://www.r-pkg.org/badges/version/r4subcore)](https://CRAN.R-project.org/package=r4subcore) | [site](https://r4sub.github.io/r4subcore/) |
+| [**r4subtrace**](https://github.com/R4SUB/r4subtrace) | ADaM↔SDTM traceability engine | [![CRAN](https://www.r-pkg.org/badges/version/r4subtrace)](https://CRAN.R-project.org/package=r4subtrace) | [site](https://r4sub.github.io/r4subtrace/) |
+| [**r4subscore**](https://github.com/R4SUB/r4subscore) | SCI scoring engine | [![CRAN](https://www.r-pkg.org/badges/version/r4subscore)](https://CRAN.R-project.org/package=r4subscore) | [site](https://r4sub.github.io/r4subscore/) |
+| [**r4subrisk**](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification | [![CRAN](https://www.r-pkg.org/badges/version/r4subrisk)](https://CRAN.R-project.org/package=r4subrisk) | [site](https://r4sub.github.io/r4subrisk/) |
+| [**r4subprofile**](https://github.com/R4SUB/r4subprofile) | Regulatory authority profiles (FDA, EMA, PMDA, MHRA, HC, TGA) | [![CRAN](https://www.r-pkg.org/badges/version/r4subprofile)](https://CRAN.R-project.org/package=r4subprofile) | [site](https://r4sub.github.io/r4subprofile/) |
+| [**r4subusability**](https://github.com/R4SUB/r4subusability) | Reviewer usability indicators | [![CRAN](https://www.r-pkg.org/badges/version/r4subusability)](https://CRAN.R-project.org/package=r4subusability) | [site](https://r4sub.github.io/r4subusability/) |
+| [**r4subdata**](https://github.com/R4SUB/r4subdata) | Synthetic example datasets | [![CRAN](https://www.r-pkg.org/badges/version/r4subdata)](https://CRAN.R-project.org/package=r4subdata) | [site](https://r4sub.github.io/r4subdata/) |
+| [**r4subui**](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard | [![CRAN](https://www.r-pkg.org/badges/version/r4subui)](https://CRAN.R-project.org/package=r4subui) | [site](https://r4sub.github.io/r4subui/) |
+| [**r4sub**](https://github.com/R4SUB/r4sub) | Meta-package — one install loads the full ecosystem | [![CRAN](https://www.r-pkg.org/badges/version/r4sub)](https://CRAN.R-project.org/package=r4sub) | [site](https://r4sub.github.io/r4sub/) |
 
-Each package is independently testable, documented, and extensible.
-
-### Quick Install
+### Install
 
 ```r
-install.packages("pak")
-pak::pak("R4SUB/r4sub")
+install.packages("r4sub")   # installs and attaches the full ecosystem
 ```
 
 ---
 
-## Typical Workflow
+## Four Evaluation Pillars
+
+R4SUB measures submission readiness across four orthogonal dimensions:
+
+| Pillar | Package | What It Measures |
+|---|---|---|
+| **Quality** | r4subcore | CDISC compliance, controlled terminology, Define-XML integrity, validation severity |
+| **Traceability** | r4subtrace | SDTM→ADaM derivation lineage, mapping completeness, orphan variables |
+| **Risk** | r4subrisk | FMEA probability × impact × detectability, RPN bands, mitigation tracking |
+| **Usability** | r4subusability | Variable label quality, Define-XML completeness, annotation coverage, reviewer guide |
+
+---
+
+## Submission Confidence Index (SCI)
+
+The SCI is a weighted composite score (0–100) across all four pillars, calibrated per regulatory authority.
+
+| SCI | Band | Interpretation |
+|---|---|---|
+| 85–100 | `ready` | Data package meets regulatory expectations |
+| 70–84 | `minor_gaps` | Minor issues; proceed with documented remediation |
+| 50–69 | `conditional` | Significant gaps; remediation required before submission |
+| 0–49 | `high_risk` | Major deficiencies; comprehensive review needed |
+
+The SCI is fully decomposable — every score traces back to concrete evidence rows.
+
+---
+
+## Regulatory Profiles
+
+`r4subprofile` calibrates SCI weights and required indicators per authority:
+
+| Authority | Region | Submission Types |
+|---|---|---|
+| FDA | United States | IND, NDA, BLA, ANDA, 505b2 |
+| EMA | European Union | CTA, MAA, variation |
+| PMDA | Japan | CTN, NDA_JP |
+| Health Canada | Canada | CTA_CA, NDS |
+| TGA | Australia | CTN_AU, registration |
+| MHRA | United Kingdom | CTA_UK, MAA_UK |
+
+---
+
+## Architecture
 
 ```
-1. Ingest       →  Load SDTM, ADaM metadata, Define.xml, validation results
-2. Extract      →  Generate evidence signals across all four pillars
-3. Evaluate     →  Compute pillar scores and aggregate to SCI
-4. Profile      →  Apply regulatory authority profile (FDA, EMA, PMDA, ...)
-5. Review       →  Inspect drill-downs, identify root causes
-6. Remediate    →  Address flagged issues
-7. Iterate      →  Re-run until target SCI achieved
+Clinical Data Assets (SDTM, ADaM, TLFs, Define.xml)
+                         │
+                         ▼
+              ┌──────────────────────┐
+              │     r4subcore        │  Evidence schema + parsers
+              └──────────┬───────────┘
+          ┌──────────────┼──────────────┬──────────────┐
+          ▼              ▼              ▼              ▼
+    r4subtrace      r4subrisk     r4subscore    r4subusability
+    Traceability    Risk FMEA     SCI Engine    Usability checks
+          └──────────────┴──────────────┴──────────────┘
+                         │
+                         ▼
+              ┌──────────────────────┐
+              │    r4subprofile      │  Authority calibration
+              └──────────┬───────────┘
+                         │
+                         ▼
+              ┌──────────────────────┐
+              │      r4subui         │  Shiny dashboard
+              └──────────────────────┘
 ```
 
-### Gallery & Demos
+---
 
-See the **[R4SUB Gallery](https://r4sub.github.io/r4sub-gallery/)** for 11 practical, runnable demos covering the full pipeline — from evidence construction to multi-authority comparison.
+## Quick Start
 
-Browse the source: [R4SUB/r4sub-gallery](https://github.com/R4SUB/r4sub-gallery)
+```r
+library(r4sub)
+
+# Load example data
+data(evidence_pharma)          # from r4subdata
+
+# Score
+scores  <- compute_indicator_scores(evidence_pharma)
+pillars <- compute_pillar_scores(evidence_pharma)
+sci     <- compute_sci(pillars)
+sci$SCI   # 0–100
+sci$band  # "ready" / "minor_gaps" / "conditional" / "high_risk"
+
+# Apply an authority profile
+prof <- submission_profile("FDA", "NDA")
+val  <- validate_against_profile(evidence_pharma, prof)
+val$is_compliant
+val$missing_indicators
+
+# Launch the dashboard
+r4sub_app(evidence = evidence_pharma)
+```
 
 ---
 
-## Human-in-the-Loop Design
+## Current Status (March 2026)
 
-R4SUB is designed to **augment expert judgment**, not replace it.
-
-### User Controls
-
-- **Weight Overrides**: Adjust pillar and indicator weights for study-specific contexts
-- **Assumption Review**: Inspect and modify default thresholds
-- **Remediation Simulation**: Model impact of fixes before implementation
-- **Evidence Annotation**: Add context and justification to flagged items
-
-### Auditability
-
-- Full decision trail for regulatory inspection
-- Timestamped configuration snapshots
-- Reproducible score computation
-- Export-ready audit logs
+| Area | Status |
+|---|---|
+| Package architecture | Complete |
+| CRAN submission | 6 of 9 packages on CRAN (r4subusability, r4subui, r4sub in review) |
+| CI / R-CMD-check | Passing on all packages |
+| pkgdown documentation sites | Live for all 9 packages |
+| Vignettes | One per package |
+| Regulatory profiles | 6 authorities implemented |
+| Example datasets | 8 synthetic datasets (pharma + oncology) |
+| End-to-end demos | Not yet — highest priority gap |
+| Shiny dashboard screenshots | Not yet |
+| PHUSE / CDISC outreach | Not yet |
+| Community contributors | Not yet |
 
 ---
 
-## Regulatory & Industry Impact
+## Design Principles
 
-R4SUB enables:
-
-- **Objective Go/No-Go Decisions**: Data-driven submission gates
-- **Portfolio-Level Monitoring**: Track readiness across multiple studies
-- **Early Risk Identification**: Catch issues before submission crunch
-- **Standardized Quality Language**: Common metrics across sponsors, CROs, and regulators
-- **Reduced Review Cycles**: Higher first-pass acceptance rates
-
----
-
-## Long-Term Vision
-
-R4SUB aims to become:
-
-- An **industry-neutral readiness standard** adopted across sponsors and regulators
-- A **submission credit score** — a trusted, comparable quality signal
-- A foundation for **AI-assisted remediation** and regulatory intelligence
-- A bridge between **validation tools** and **regulatory decision-making**
+| Principle | Description |
+|---|---|
+| **Regulator-aligned** | FDA, EMA, PMDA expectations encoded as measurable indicators |
+| **Quantitative** | Weighted scoring beyond binary pass/fail |
+| **Explainable** | Every score traces to concrete evidence |
+| **Modular** | Independent, composable R packages |
+| **Human-in-the-loop** | Augments expert judgment; does not replace it |
+| **Open source** | MIT license, vendor-neutral, no real patient data |
 
 ---
 
 ## Intended Audience
 
-- Clinical Programmers
-- Biostatisticians
-- Regulatory Data Standards Teams
-- Quality Assurance
-- Submission Operations
-- Open-source clinical data developers
-
----
-
-## Open Source Principles
-
-R4SUB is:
-
-- Fully open source (MIT License)
-- Vendor-neutral
-- Audit-friendly
-- Reproducible
-- Designed for community extension
-
-All example datasets are synthetic and contain **no real patient data**.
+Clinical Programmers · Biostatisticians · Regulatory Data Standards Teams · Quality Assurance · Submission Operations
 
 ---
 
 ## Contributing
 
-We welcome contributions in the form of:
+We welcome contributions:
 
-- New readiness rules and indicators
-- New scoring profiles and weight configurations
-- Traceability methods and parsers
-- Documentation and examples
+- New readiness indicators and scoring rules
+- Additional regulatory authority profiles
+- Traceability parsers for new source formats
+- End-to-end workflow examples and demos
 - Bug reports and feature requests
 
-See `CONTRIBUTING.md` in individual repositories for details.
-
----
-
-## Contact & Community
-
-This project is community-driven and maintained in the open.
-
-Use GitHub Issues and Discussions in the relevant repositories to:
-
-- Report bugs
-- Suggest enhancements
-- Propose new readiness metrics
-- Share implementation experiences
+Open an issue or discussion in the relevant repository.
 
 ---
 
