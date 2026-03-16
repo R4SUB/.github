@@ -1,4 +1,4 @@
-# R4SUB — R for Regulatory Submission
+# R4SUB — Ready for Submission
 
 **A quantitative framework to assess clinical data readiness for regulatory submission.**
 
