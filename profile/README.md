@@ -171,6 +171,13 @@ Contributions are genuinely welcome. Some things that would help:
 
 Open an issue or start a discussion in the relevant repo and we'll take it from there.
 
+## About
+
+R4SUB is developed and maintained as part of the open-source work of
+[TechWorksLab](https://techworkslab.com) - clinical SAS & R programming, CDISC
+SDTM/ADaM, and defensible FDA/EMA submissions for sponsors and CROs.
+Maintainer: Pawan Rama Mali.
+
 ---
 
 *R4SUB exists because passing validation and being ready to submit are not the same thing.*
