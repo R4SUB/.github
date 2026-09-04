@@ -34,6 +34,8 @@ The easiest way in:
 install.packages("r4sub")   # installs and attaches everything
 ```
 
+**Extensions** (outside the meta-package): [r4subpharma](https://github.com/R4SUB/r4subpharma) adapts [pharmaverse](https://pharmaverse.org) metadata and ADaM outputs into R4SUB evidence, so a pharmaverse pipeline can be scored without changing it; [r4agent](https://github.com/R4SUB/r4agent) benchmarks an AI agent or language model against your own cases and returns a production-readiness answer instead of a dashboard.
+
 ## How readiness gets measured
 
 Readiness isn't one thing, so R4SUB breaks it into four pillars that don't overlap much in practice:
@@ -124,25 +126,25 @@ val$missing_indicators
 r4sub_app(evidence = evidence_pharma)
 ```
 
-## Where things stand (March 2026)
+## Where things stand (September 2026)
 
 Being honest about what's done and what isn't:
 
 | Area | Status |
 |---|---|
 | Package architecture | Done |
-| CRAN | 6 of 9 published; r4subusability, r4subui, and r4sub still in review |
+| CRAN | 7 of 9 published; r4subusability and r4subui still in review |
 | CI / R CMD check | Passing everywhere |
-| pkgdown sites | Live for all 9 packages |
+| pkgdown sites | Live for all packages |
 | Vignettes | One per package |
 | Regulatory profiles | 6 authorities implemented |
 | Example datasets | 8 synthetic datasets (pharma + oncology) |
-| End-to-end demos | Not yet - this is the biggest gap right now |
+| End-to-end demos | In progress - r4sub-gallery + an end-to-end vignette (more coming) |
 | Dashboard screenshots | Not yet |
-| PHUSE / CDISC outreach | Not yet |
+| Community (pharmaverse / PHUSE / CDISC) | pharmaverse inclusion requested; PHUSE / CDISC not yet |
 | Outside contributors | Not yet |
 
-If you're looking for a good place to jump in, the end-to-end demos are where help would matter most.
+If you're looking for a good place to jump in, end-to-end demos and dashboard screenshots are where help would matter most.
 
 ## What guides the design
 
