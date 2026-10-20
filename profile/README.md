@@ -14,7 +14,7 @@ One thing worth being clear about: R4SUB is not a validator and doesn't try to b
 
 ## The packages
 
-R4SUB is nine R packages rather than one monolith. Each is independently tested, documented, and published, so you can pull in only what you need - or grab everything at once through the meta-package.
+R4SUB is ten R packages rather than one monolith. Each owns a distinct slice of the work, and each is independently tested and documented, so you can pull in only what you need - or grab everything at once through the meta-package.
 
 | Package | What it does | CRAN | Docs |
 |---|---|---|---|
@@ -23,7 +23,8 @@ R4SUB is nine R packages rather than one monolith. Each is independently tested,
 | [r4subscore](https://github.com/R4SUB/r4subscore) | SCI scoring engine | [![CRAN](https://www.r-pkg.org/badges/version/r4subscore)](https://CRAN.R-project.org/package=r4subscore) | [site](https://r4sub.github.io/r4subscore/) |
 | [r4subrisk](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification | [![CRAN](https://www.r-pkg.org/badges/version/r4subrisk)](https://CRAN.R-project.org/package=r4subrisk) | [site](https://r4sub.github.io/r4subrisk/) |
 | [r4subprofile](https://github.com/R4SUB/r4subprofile) | Regulatory authority profiles (FDA, EMA, PMDA, MHRA, HC, TGA) | [![CRAN](https://www.r-pkg.org/badges/version/r4subprofile)](https://CRAN.R-project.org/package=r4subprofile) | [site](https://r4sub.github.io/r4subprofile/) |
-| [r4subusability](https://github.com/R4SUB/r4subusability) | Reviewer usability indicators | [![CRAN](https://www.r-pkg.org/badges/version/r4subusability)](https://CRAN.R-project.org/package=r4subusability) | [site](https://r4sub.github.io/r4subusability/) |
+| [r4subusability](https://github.com/R4SUB/r4subusability) | Data-package usability indicators (labels, Define-XML, annotation) | [![CRAN](https://www.r-pkg.org/badges/version/r4subusability)](https://CRAN.R-project.org/package=r4subusability) | [site](https://r4sub.github.io/r4subusability/) |
+| [r4subrepro](https://github.com/R4SUB/r4subrepro) | Code-package reproducibility & reviewability (environment, output reproduction, SAS vs R, ADRG) | [![CRAN](https://www.r-pkg.org/badges/version/r4subrepro)](https://CRAN.R-project.org/package=r4subrepro) | [site](https://r4sub.github.io/r4subrepro/) |
 | [r4subdata](https://github.com/R4SUB/r4subdata) | Synthetic example datasets | [![CRAN](https://www.r-pkg.org/badges/version/r4subdata)](https://CRAN.R-project.org/package=r4subdata) | [site](https://r4sub.github.io/r4subdata/) |
 | [r4subui](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard | [![CRAN](https://www.r-pkg.org/badges/version/r4subui)](https://CRAN.R-project.org/package=r4subui) | [site](https://r4sub.github.io/r4subui/) |
 | [r4sub](https://github.com/R4SUB/r4sub) | Meta-package: one install pulls in the whole ecosystem | [![CRAN](https://www.r-pkg.org/badges/version/r4sub)](https://CRAN.R-project.org/package=r4sub) | [site](https://r4sub.github.io/r4sub/) |
@@ -38,14 +39,14 @@ install.packages("r4sub")   # installs and attaches everything
 
 ## How readiness gets measured
 
-Readiness isn't one thing, so R4SUB breaks it into four pillars that don't overlap much in practice:
+Readiness isn't one thing, so R4SUB breaks it into four scoring pillars, and each package owns a distinct, non-overlapping slice of the work:
 
 - **Quality** (`r4subcore`) - CDISC compliance, controlled terminology, Define-XML integrity, and how severe the validation findings are.
 - **Traceability** (`r4subtrace`) - whether SDTM→ADaM derivations actually line up: mapping completeness, derivation lineage, orphan variables.
 - **Risk** (`r4subrisk`) - an FMEA view (probability × impact × detectability), grouped into RPN bands, with mitigation tracking.
-- **Usability** (`r4subusability`) - the stuff a reviewer notices: variable label quality, Define-XML completeness, annotation coverage, the reviewer guide.
+- **Usability** - the reviewer's experience, split across two packages that stay on their own side of the line. `r4subusability` scores the **data package**: variable label quality, Define-XML completeness, annotation coverage, reviewer-guide presence. `r4subrepro` scores the **code package**: can a reviewer actually reproduce it? - captured environment, path hygiene, a single entry point, hidden setup, proprietary packages, clean-run output reproduction, SAS vs R verification, and a complete ADRG.
 
-Each pillar produces its own score. The SCI combines them.
+Each pillar produces its own score, and the SCI combines them. `r4subscore` is the engine that turns evidence into those scores; `r4subprofile` sets the authority-specific weights; `r4subdata` ships example data; `r4subui` is the dashboard; and `r4subcore` underlies all of it as the shared evidence schema every package reads and writes.
 
 ## Reading the SCI
 
@@ -76,23 +77,26 @@ Different authorities care about different things and weight them differently. `
 ## How it fits together
 
 ```
-Clinical Data Assets (SDTM, ADaM, TLFs, Define.xml)
+Clinical Data Assets (SDTM, ADaM, TLFs, Define.xml, analysis code)
                          │
                          ▼
               ┌──────────────────────┐
               │     r4subcore        │  Evidence schema + parsers
               └──────────┬───────────┘
-          ┌──────────────┼──────────────┬──────────────┐
-          ▼              ▼              ▼              ▼
-    r4subtrace      r4subrisk     r4subscore    r4subusability
-    Traceability    Risk FMEA     SCI Engine    Usability checks
-          └──────────────┴──────────────┴──────────────┘
-                         │
+      ┌────────────┬─────┴──────┬──────────────┐
+      ▼            ▼            ▼              ▼
+ r4subtrace   r4subrisk   r4subusability   r4subrepro
+ Traceability Risk FMEA   Data-package     Code repro +
+                          usability        reviewability
+      └────────────┴─────┬──────┴──────────────┘
+                         ▼
+              ┌──────────────────────┐
+              │     r4subscore       │  SCI engine
+              └──────────┬───────────┘
                          ▼
               ┌──────────────────────┐
               │    r4subprofile      │  Authority calibration
               └──────────┬───────────┘
-                         │
                          ▼
               ┌──────────────────────┐
               │      r4subui         │  Shiny dashboard
@@ -126,14 +130,14 @@ val$missing_indicators
 r4sub_app(evidence = evidence_pharma)
 ```
 
-## Where things stand (September 2026)
+## Where things stand (October 2026)
 
 Being honest about what's done and what isn't:
 
 | Area | Status |
 |---|---|
 | Package architecture | Done |
-| CRAN | 7 of 9 published; r4subusability and r4subui still in review |
+| CRAN | 7 of the 10 published; r4subusability and r4subui in review; r4subrepro newly added (dev). r4subpharma (extension) also on CRAN |
 | CI / R CMD check | Passing everywhere |
 | pkgdown sites | Live for all packages |
 | Vignettes | One per package |
